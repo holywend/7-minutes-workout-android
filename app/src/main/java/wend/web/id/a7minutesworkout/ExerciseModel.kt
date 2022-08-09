@@ -1,5 +1,11 @@
 package wend.web.id.a7minutesworkout
 
-class ExerciseModel(var name: String, var img: Int, var duration: Long, var nextPrompt: String) {
-var maxProgress = (duration / 1000).toInt()
+class ExerciseModel(
+    val id: Int,
+    val name: String,
+    val img: Int,
+    val duration: Long
+) {
+    val maxProgress = (duration / 1000).toInt()
+    var isCompleted: Boolean = false
 }

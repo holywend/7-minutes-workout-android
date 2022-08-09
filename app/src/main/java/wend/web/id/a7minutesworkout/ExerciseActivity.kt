@@ -1,5 +1,7 @@
 package wend.web.id.a7minutesworkout
 
+import android.media.MediaPlayer
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -13,20 +15,20 @@ import java.util.*
 class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var binding: ActivityExerciseBinding? = null
 
-    private var timer: CountDownTimer? = null
-
-    private var lapsedProgress = 0
-
-    private val timerInterval: Long = 1000
-
     private val exerciseModelList = Constant.defaultExerciseList()
-    private var currentIndex = 0
+    private var currentIndex = 0 // current exercise index
 
+    // music / sound related
     private var t2speech: TextToSpeech? = null
+    private var player: MediaPlayer? = null
 
-    private var lapsedMinutes = 0
-    private var lapsedSeconds = 0
-    private var totalTime: String? = null
+    private var timer: CountDownTimer? = null
+    private var lapsedProgress = 0 // store lapsed progress second
+    private var lapsedMinutes = 0 // store lapsed minutes
+    private var lapsedSeconds = 0 // store lapsed seconds
+    private var totalTime: String? = null // store total lapse
+
+    private var isResting = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,29 +45,60 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding?.tbExercise?.setNavigationOnClickListener {
             onBackPressed()
         }
+        // play music
+        try {
+            val soundUri =
+                Uri.parse("android.resource://wend.web.id.a7minutesworkout/" + R.raw.happy_travel_pop)
+            player = MediaPlayer.create(applicationContext, soundUri)
+            player?.isLooping = true
+            player?.setVolume(0.2f,0.2f)
+            player?.start()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         startExerciseTimer()
     }
 
     private fun startTimer() {
         binding?.pbExercise?.progress = lapsedProgress
-        binding?.pbExercise?.max = exerciseModelList[currentIndex].maxProgress
-        binding?.tvTitle?.text = exerciseModelList[currentIndex].name
-        if (exerciseModelList[currentIndex].img == 0) { // resting
+        if (isResting) { // resting
+
+            // set the progress and display current progress name
+            // currently it is resting progress
+            binding?.pbExercise?.max = Constant.restProgress
+            binding?.tvTitle?.text = Constant.restDisplayName
+            // hide exercise image
+            // show next exercise name and image
             binding?.ivExercise?.visibility = View.GONE
             binding?.tvNext?.visibility = View.VISIBLE
             binding?.ivNext?.visibility = View.VISIBLE
-            binding?.ivNext?.setImageResource(exerciseModelList[currentIndex + 1].img)
-            val next = "Next Exercise\n" + exerciseModelList[currentIndex + 1].name
-            binding?.tvNext?.text = next
 
+            // set name and image for next exercise
+            binding?.ivNext?.setImageResource(exerciseModelList[currentIndex].img)
+            val next = "Next Exercise\n" + exerciseModelList[currentIndex].name
+            binding?.tvNext?.text = next
+            // call the timer
+            createTimerObject(Constant.restDuration)
         } else { // exercise
+
+            // set the progress and display current progress name
+            // current exercise
+            binding?.pbExercise?.max = exerciseModelList[currentIndex].maxProgress
+            binding?.tvTitle?.text = exerciseModelList[currentIndex].name
+            // show exercise image
+            // hide next exercise name and image
             binding?.ivExercise?.visibility = View.VISIBLE
             binding?.tvNext?.visibility = View.GONE
             binding?.ivNext?.visibility = View.GONE
             binding?.ivExercise?.setImageResource(exerciseModelList[currentIndex].img)
+            // call the timer
+            createTimerObject(exerciseModelList[currentIndex].duration)
         }
-        timer = object : CountDownTimer(exerciseModelList[currentIndex].duration, timerInterval) {
+
+    }
+    private fun createTimerObject(duration: Long) {
+        timer = object : CountDownTimer(duration, Constant.interval) {
             override fun onTick(p0: Long) {
                 lapsedSeconds++
                 if (lapsedSeconds == 60) {
@@ -75,24 +108,40 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 totalTime = "%02d".format(lapsedMinutes) + ":" + "%02d".format(lapsedSeconds)
                 binding?.tvTotalTime?.text = totalTime
                 lapsedProgress++
-                val remainingTime = exerciseModelList[currentIndex].maxProgress - lapsedProgress
+                val remainingTime = if (isResting) {
+                    Constant.restProgress - lapsedProgress
+                }else{
+                    exerciseModelList[currentIndex].maxProgress - lapsedProgress
+                }
                 binding?.pbExercise?.progress = remainingTime
                 binding?.tvTimer?.text = remainingTime.toString()
 
-                if (remainingTime == 0) {
-                    speakOut(exerciseModelList[currentIndex].nextPrompt)
-                } else if (remainingTime <= 8) {
-                    speakOut(remainingTime.toString())
+                // text to speech
+                if (isResting){
+                    if (remainingTime == 8) {
+                        speakOut("Next exercise is "+exerciseModelList[currentIndex].name)
+                    } else if (remainingTime == 0) {
+                        speakOut("Go!")
+                    } else if (remainingTime <= 3) {
+                        speakOut(remainingTime.toString())
+                    }
+                } else {
+                    if (remainingTime == 0) {
+                        speakOut("Take a break")
+                    } else if (remainingTime <= 8){
+                        speakOut(remainingTime.toString())
+                    }
                 }
             }
 
             override fun onFinish() {
-                if (currentIndex + 1 < exerciseModelList.size) {
-                    currentIndex++
+                exerciseModelList[currentIndex].isCompleted = true
+                if (currentIndex < exerciseModelList.size) {
+                    if (!isResting) {currentIndex++}
+                    isResting = !isResting
                     lapsedProgress = 0
                     startTimer() // continue call itself
                 } else {
-
                     Toast.makeText(
                         this@ExerciseActivity,
                         "Workout Finished!",
@@ -123,6 +172,10 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (t2speech != null) {
             t2speech?.stop()
             t2speech?.shutdown()
+        }
+        if (player != null) {
+            player?.stop()
+            player = null
         }
         t2speech = null
         binding = null
