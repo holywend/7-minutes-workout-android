@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_screen_padding">5dp</dimen>
+    <dimen name="text_xs">12sp</dimen>
+    <dimen name="text_sm">16sp</dimen>
+    <dimen name="text_md">20sp</dimen>
+    <dimen name="text_base">24sp</dimen>
+    <dimen name="text_lg">28sp</dimen>
+    <dimen name="text_xl">32sp</dimen>
+    <dimen name="text_2xl">36sp</dimen>
+    <dimen name="text_3xl">40sp</dimen>
+    <dimen name="text_4xl">44sp</dimen>
+    <dimen name="text_5xl">48sp</dimen>
+</resources>
