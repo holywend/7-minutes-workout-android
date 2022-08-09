@@ -1,7 +1,5 @@
 package wend.web.id.a7minutesworkout
 
-import android.media.MediaPlayer
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
