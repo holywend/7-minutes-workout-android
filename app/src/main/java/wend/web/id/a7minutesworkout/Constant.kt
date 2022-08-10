@@ -12,25 +12,25 @@ object Constant {
             ExerciseModel(1, "Jumping Jack", R.drawable.ic_jumping_jack, 30000)
         )
         exerciseList.add(
-            ExerciseModel(2, "Forward lunge", R.drawable.ic_lunge, 30000)
+            ExerciseModel(2, "Push Up", R.drawable.ic_push_up, 30000)
         )
         exerciseList.add(
-            ExerciseModel(3, "Forearm Plank", R.drawable.ic_plank, 30000)
+            ExerciseModel(3, "Forward lunge", R.drawable.ic_lunge, 30000)
         )
         exerciseList.add(
-            ExerciseModel(4, "Push Up", R.drawable.ic_push_up, 30000)
+            ExerciseModel(4, "Forearm Plank", R.drawable.ic_plank, 30000)
         )
         exerciseList.add(
-            ExerciseModel(5,"Push Up Rotation", R.drawable.ic_push_up_rotation, 30000)
+            ExerciseModel(5,"Squat", R.drawable.ic_squat, 30000)
         )
         exerciseList.add(
-            ExerciseModel(6, "Side Plank", R.drawable.ic_side_plank, 30000)
+            ExerciseModel(6,"Push Up Rotation", R.drawable.ic_push_up_rotation, 30000)
         )
         exerciseList.add(
-            ExerciseModel(7,"Squat", R.drawable.ic_squat, 30000)
+            ExerciseModel(7,"Step up on chair", R.drawable.ic_step_up_chair, 30000)
         )
         exerciseList.add(
-            ExerciseModel(8,"Step up on chair", R.drawable.ic_step_up_chair, 30000)
+            ExerciseModel(8, "Side Plank", R.drawable.ic_side_plank, 30000)
         )
         exerciseList.add(
             ExerciseModel(9, "Triceps dips", R.drawable.ic_triceps_dips_on_chair, 30000)

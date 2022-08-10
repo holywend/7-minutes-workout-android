@@ -14,6 +14,7 @@ import java.util.*
 
 class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var binding: ActivityExerciseBinding? = null
+    private var exerciseAdapter: ExerciseAdapter? = null
 
     private val exerciseModelList = Constant.defaultExerciseList()
     private var currentIndex = 0 // current exercise index
@@ -37,6 +38,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         setSupportActionBar(binding?.tbExercise)
 
+        setupExerciseAdapter()
+
         t2speech = TextToSpeech(this, this)
         if (supportActionBar != null) {
             // add back button to navigation
@@ -51,13 +54,17 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Uri.parse("android.resource://wend.web.id.a7minutesworkout/" + R.raw.happy_travel_pop)
             player = MediaPlayer.create(applicationContext, soundUri)
             player?.isLooping = true
-            player?.setVolume(0.2f,0.2f)
+            player?.setVolume(0.2f, 0.2f)
             player?.start()
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
         startExerciseTimer()
+    }
+
+    private fun setupExerciseAdapter() {
+        exerciseAdapter = ExerciseAdapter(exerciseModelList)
+        binding?.rvExercise?.adapter = exerciseAdapter
     }
 
     private fun startTimer() {
@@ -73,14 +80,18 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             binding?.ivExercise?.visibility = View.GONE
             binding?.tvNext?.visibility = View.VISIBLE
             binding?.ivNext?.visibility = View.VISIBLE
-
-            // set name and image for next exercise
-            binding?.ivNext?.setImageResource(exerciseModelList[currentIndex].img)
-            val next = "Next Exercise\n" + exerciseModelList[currentIndex].name
-            binding?.tvNext?.text = next
+            // check if there is a next exercise
+            if (currentIndex <= (exerciseModelList.size - 1)) {
+                // set name and image for next exercise
+                binding?.ivNext?.setImageResource(exerciseModelList[currentIndex].img)
+                val next = "Next Exercise\n" + exerciseModelList[currentIndex].name
+                binding?.tvNext?.text = next
+            }
             // call the timer
             createTimerObject(Constant.restDuration)
         } else { // exercise
+            // set is current
+            exerciseModelList[currentIndex].isCurrent = true
 
             // set the progress and display current progress name
             // current exercise
@@ -95,8 +106,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             // call the timer
             createTimerObject(exerciseModelList[currentIndex].duration)
         }
-
     }
+
     private fun createTimerObject(duration: Long) {
         timer = object : CountDownTimer(duration, Constant.interval) {
             override fun onTick(p0: Long) {
@@ -110,16 +121,16 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 lapsedProgress++
                 val remainingTime = if (isResting) {
                     Constant.restProgress - lapsedProgress
-                }else{
+                } else {
                     exerciseModelList[currentIndex].maxProgress - lapsedProgress
                 }
                 binding?.pbExercise?.progress = remainingTime
                 binding?.tvTimer?.text = remainingTime.toString()
 
                 // text to speech
-                if (isResting){
+                if (isResting) {
                     if (remainingTime == 8) {
-                        speakOut("Next exercise is "+exerciseModelList[currentIndex].name)
+                        speakOut("Next exercise is " + exerciseModelList[currentIndex].name)
                     } else if (remainingTime == 0) {
                         speakOut("Go!")
                     } else if (remainingTime <= 3) {
@@ -128,16 +139,21 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 } else {
                     if (remainingTime == 0) {
                         speakOut("Take a break")
-                    } else if (remainingTime <= 8){
+                    } else if (remainingTime <= 8) {
                         speakOut(remainingTime.toString())
                     }
                 }
             }
 
             override fun onFinish() {
-                exerciseModelList[currentIndex].isCompleted = true
                 if (currentIndex < exerciseModelList.size) {
-                    if (!isResting) {currentIndex++}
+                    exerciseModelList[currentIndex].isCurrent = false
+                    exerciseModelList[currentIndex].isCompleted = true
+                    // do not increase current index if it is the last index
+                    // last index is size - 1
+                    if (!isResting) {
+                        currentIndex++
+                    }
                     isResting = !isResting
                     lapsedProgress = 0
                     startTimer() // continue call itself
@@ -149,6 +165,10 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     )
                         .show()
                 }
+
+                // display updated exercise
+                // setupExerciseAdapter()
+                exerciseAdapter?.notifyDataSetChanged()
             }
         }.start()
     }
@@ -193,6 +213,5 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun speakOut(text: String) {
         t2speech?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
     }
-
 
 }

@@ -8,4 +8,5 @@ class ExerciseModel(
 ) {
     val maxProgress = (duration / 1000).toInt()
     var isCompleted: Boolean = false
+    var isCurrent: Boolean = false
 }
