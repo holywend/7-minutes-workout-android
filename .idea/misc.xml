@@ -8,13 +8,22 @@
         <entry key="app/src/main/res/drawable/item_shape_activity_bg_emerald.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/layer_list_ring_progressbar_blue.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/layer_list_ring_progressbar_gray.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ripple_circular_button.xml" value="0.1665" />
+        <entry key="app/src/main/res/drawable/ripple_circular_button_blue.xml" value="0.1665" />
+        <entry key="app/src/main/res/drawable/ripple_circular_button_emerald.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/shape_circular.xml" value="0.16" />
         <entry key="app/src/main/res/drawable/shape_circular_blue.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/shape_circular_button.xml" value="0.16" />
+        <entry key="app/src/main/res/drawable/shape_circular_button_blue.xml" value="0.1665" />
+        <entry key="app/src/main/res/drawable/shape_circular_button_emerald.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/shape_circular_button_pressed.xml" value="0.16" />
+        <entry key="app/src/main/res/drawable/shape_circular_emerald.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/shape_circular_progress_gray.xml" value="0.16" />
+        <entry key="app/src/main/res/layout/activity_bmi.xml" value="0.2736212056434374" />
         <entry key="app/src/main/res/layout/activity_exercise.xml" value="0.38426860990357126" />
+        <entry key="app/src/main/res/layout/activity_finish.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/dialog_exit_confirmation.xml" value="0.19628286491387126" />
         <entry key="app/src/main/res/layout/item_shape_activity_bg.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_text_activity.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_textview_activity.xml" value="0.5175354003906251" />

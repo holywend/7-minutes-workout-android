@@ -1,5 +1,7 @@
 package wend.web.id.a7minutesworkout
 
+import android.app.Dialog
+import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import wend.web.id.a7minutesworkout.databinding.ActivityExerciseBinding
+import wend.web.id.a7minutesworkout.databinding.DialogExitConfirmationBinding
 import java.util.*
 
 class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
@@ -46,7 +49,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
         binding?.tbExercise?.setNavigationOnClickListener {
-            onBackPressed()
+//            onBackPressed()
+            dialogConfirmation()
         }
         // play music
         try {
@@ -60,6 +64,28 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             e.printStackTrace()
         }
         startExerciseTimer()
+    }
+
+    override fun onBackPressed() {
+//        super.onBackPressed()
+        dialogConfirmation()
+    }
+
+    private fun dialogConfirmation() {
+        val customDialog = Dialog(this)
+        val dialogBinding = DialogExitConfirmationBinding.inflate(layoutInflater)
+        val msg = "This will end current exercise"
+        dialogBinding.tvMessage.text = msg
+        customDialog.setContentView(dialogBinding.root)
+        customDialog.setCanceledOnTouchOutside(false)
+        customDialog.show()
+        dialogBinding.btnNo.setOnClickListener {
+            customDialog.dismiss()
+        }
+        dialogBinding.btnYes.setOnClickListener {
+            this@ExerciseActivity.finish()
+            customDialog.dismiss()
+        }
     }
 
     private fun setupExerciseAdapter() {
@@ -164,11 +190,16 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         Toast.LENGTH_SHORT
                     )
                         .show()
+                    finish()
+                    val intent = Intent(this@ExerciseActivity, FinishActivity::class.java)
+                    startActivity(intent)
                 }
 
                 // display updated exercise
-                // setupExerciseAdapter()
-                exerciseAdapter?.notifyDataSetChanged()
+                // exerciseAdapter?.notifyDataSetChanged()
+                // update only specific changes
+                if (currentIndex > 0) exerciseAdapter?.notifyItemChanged(currentIndex-1)
+                exerciseAdapter?.notifyItemChanged(currentIndex)
             }
         }.start()
     }

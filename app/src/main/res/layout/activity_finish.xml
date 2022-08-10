@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".FinishActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tbFinish"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:text="Congratulation,\nYou have completed\nthe workout!"
+        android:textColor="@color/blue_600"
+        android:textSize="@dimen/text_xl" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:cardCornerRadius="150dp">
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:contentDescription="Finish image"
+            android:src="@drawable/winning_congratulation" />
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btnFinish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:padding="12dp"
+        android:text="FINISH"
+        android:textSize="@dimen/text_3xl"
+        android:backgroundTint="@color/blue_600" />
+
+</LinearLayout>

@@ -7,4 +7,14 @@
     <string name="exercise_image">exercise image</string>
     <string name="next_exercise_image">next exercise image</string>
     <string name="_1">1</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="this_will_end_current_exercise">This will end current exercise</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="calculator">CALCULATOR</string>
+    <string name="bmi">BMI</string>
+    <string name="your_bmi">Your BMI</string>
+    <string name="calculate">CALCULATE</string>
+    <string name="weight_in_kg">WEIGHT (in kg)</string>
+    <string name="height_in_cm">HEIGHT (in cm)</string>
 </resources>

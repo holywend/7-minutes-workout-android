@@ -1,24 +1,20 @@
 package wend.web.id.a7minutesworkout
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
-import wend.web.id.a7minutesworkout.databinding.ItemTextviewActivityBinding
-import kotlin.coroutines.coroutineContext
+import wend.web.id.a7minutesworkout.databinding.TextviewActivityBinding
 
 class ExerciseAdapter (private val items: ArrayList<ExerciseModel>):
     RecyclerView.Adapter<ExerciseAdapter.ViewHolder>() {
 
-        class ViewHolder(binding: ItemTextviewActivityBinding): RecyclerView.ViewHolder(binding.root) {
+        class ViewHolder(binding: TextviewActivityBinding): RecyclerView.ViewHolder(binding.root) {
             val tvItem = binding.tvItem
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemTextviewActivityBinding.inflate(
+        return ViewHolder(TextviewActivityBinding.inflate(
             LayoutInflater.from(parent.context), parent, false)
         )
     }
