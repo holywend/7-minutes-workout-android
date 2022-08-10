@@ -11,6 +11,8 @@
         <entry key="app/src/main/res/drawable/ripple_circular_button.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/ripple_circular_button_blue.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/ripple_circular_button_emerald.xml" value="0.1665" />
+        <entry key="app/src/main/res/drawable/selector_radio_group_text_color.xml" value="0.1665" />
+        <entry key="app/src/main/res/drawable/selector_radio_item_tab.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/shape_circular.xml" value="0.16" />
         <entry key="app/src/main/res/drawable/shape_circular_blue.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/shape_circular_button.xml" value="0.16" />
@@ -19,6 +21,7 @@
         <entry key="app/src/main/res/drawable/shape_circular_button_pressed.xml" value="0.16" />
         <entry key="app/src/main/res/drawable/shape_circular_emerald.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/shape_circular_progress_gray.xml" value="0.16" />
+        <entry key="app/src/main/res/drawable/shape_radio_group_bg.xml" value="0.1665" />
         <entry key="app/src/main/res/layout/activity_bmi.xml" value="0.2736212056434374" />
         <entry key="app/src/main/res/layout/activity_exercise.xml" value="0.38426860990357126" />
         <entry key="app/src/main/res/layout/activity_finish.xml" value="0.1" />

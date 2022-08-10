@@ -22,16 +22,8 @@ class MainActivity : AppCompatActivity() {
 //        val flStartButton: FrameLayout = findViewById(R.id.fl_start)
 //        flStartButton.setOnClickListener {
         binding?.flStart?.setOnClickListener {
-            // play sound effect when workout finished
-            try {
-                val soundUri =
-                    Uri.parse("android.resource://wend.web.id.a7minutesworkout/" + R.raw.press_start)
-                player = MediaPlayer.create(applicationContext, soundUri)
-                player?.isLooping = false
-                player?.start()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            // play sound effect
+            playSoundEffect()
 
             Toast.makeText(this, "Start Clicked", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, ExerciseActivity::class.java)
@@ -41,7 +33,10 @@ class MainActivity : AppCompatActivity() {
             // to get back to main activity finish()
         }
         binding?.flBmi?.setOnClickListener {
-            val intent = Intent( this, BmiActivity::class.java)
+            // play sound effect
+            playSoundEffect()
+
+            val intent = Intent(this, BmiActivity::class.java)
             startActivity(intent)
         }
     }
@@ -54,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     private fun dialogConfirmation() {
         val customDialog = Dialog(this)
         val dialogBinding = DialogExitConfirmationBinding.inflate(layoutInflater)
-        val msg = "This exit the App"
+        val msg = "Exit the App"
         dialogBinding.tvMessage.text = msg
         customDialog.setContentView(dialogBinding.root)
         customDialog.setCanceledOnTouchOutside(false)
@@ -65,6 +60,18 @@ class MainActivity : AppCompatActivity() {
         dialogBinding.btnYes.setOnClickListener {
             this@MainActivity.finish()
             customDialog.dismiss()
+        }
+    }
+
+    private fun playSoundEffect() {
+        try {
+            val soundUri =
+                Uri.parse("android.resource://wend.web.id.a7minutesworkout/" + R.raw.press_start)
+            player = MediaPlayer.create(applicationContext, soundUri)
+            player?.isLooping = false
+            player?.start()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

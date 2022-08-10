@@ -74,7 +74,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun dialogConfirmation() {
         val customDialog = Dialog(this)
         val dialogBinding = DialogExitConfirmationBinding.inflate(layoutInflater)
-        val msg = "This will end current exercise"
+        val msg = "End current exercise"
         dialogBinding.tvMessage.text = msg
         customDialog.setContentView(dialogBinding.root)
         customDialog.setCanceledOnTouchOutside(false)

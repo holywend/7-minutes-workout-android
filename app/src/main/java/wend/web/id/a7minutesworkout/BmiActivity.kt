@@ -12,6 +12,7 @@ import java.util.*
 class BmiActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var binding: ActivityBmiBinding? = null
     private var t2speech: TextToSpeech? = null
+    private var isMetric = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,16 +31,50 @@ class BmiActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         binding?.btnCalculate?.setOnClickListener {
             if (validateEntry()) {
-                // centimeter to meter
-                val height = binding?.etHeight?.text.toString().toFloat() / 100
-                val weight = binding?.etWeight?.text.toString().toFloat()
-                val bmi = weight / (height * height)
+                val bmi = calculate()
                 displayBMI(bmi)
             } else {
-                Toast.makeText(this, "Please enter a valid entry", Toast.LENGTH_SHORT).show()
+                speakOut("Please enter a valid weight and height")
+                Toast.makeText(this, "Please enter a valid weight and height", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
+        binding?.rbMetric?.setOnClickListener {
+            if (!isMetric) switchUnits()
+        }
+        binding?.rbUs?.setOnClickListener {
+            if (isMetric) switchUnits()
+        }
+    }
 
+    private fun calculate(): Float {
+        // centimeter to meter
+        Log.i("calculate", "isMetric: $isMetric")
+        val height = binding?.etHeight?.text.toString().toFloat() / 100
+        val weight = if (isMetric) binding?.etWeight?.text.toString().toFloat() else getMetric()
+        Log.i("calculate", "height: $height weight: $weight")
+        return weight / (height * height)
+
+    }
+
+    private fun switchUnits() {
+        isMetric = !isMetric
+        if (isMetric) {
+            binding?.tilHeight?.visibility = View.VISIBLE
+            binding?.llUsHeight?.visibility = View.GONE
+        } else {
+            binding?.tilHeight?.visibility = View.GONE
+            binding?.llUsHeight?.visibility = View.VISIBLE
+        }
+        resetEditText()
+    }
+
+    private fun resetEditText() {
+        binding?.llResult?.visibility = View.INVISIBLE
+        binding?.etWeight?.text?.clear()
+        binding?.etHeight?.text?.clear()
+        binding?.etFeet?.text?.clear()
+        binding?.etInch?.text?.clear()
     }
 
     private fun displayBMI(bmi: Float) {
@@ -67,12 +102,36 @@ class BmiActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding?.llResult?.visibility = View.VISIBLE
     }
 
+    private fun getMetric(): Float {
+        val feet =
+            if (binding?.etFeet?.text.toString().isEmpty()) 0f else binding?.etFeet?.text.toString()
+                .toFloat()
+        val inch =
+            if (binding?.etInch?.text.toString().isEmpty()) 0f else binding?.etInch?.text.toString()
+                .toFloat()
+        return us2Metric(feet, inch)
+    }
+
+    private fun us2Metric(feet: Float, inch: Float): Float {
+        var cm: Float = feet * 30.48f
+        cm += inch * 2.54f
+        return cm / 100f // return in meter
+    }
+
     private fun validateEntry(): Boolean {
         var isValid = true
-        if (binding?.etHeight?.text.toString().isEmpty()) {
+        if (binding?.etWeight?.text.toString().isEmpty()) {
             isValid = false
-        } else if (binding?.etWeight?.text.toString().isEmpty()) {
-            isValid = false
+        } else if (isMetric) { // isMetric
+            if (binding?.etHeight?.text.toString().isEmpty()) {
+                isValid = false
+            }
+        } else { // is US Unit
+            if (binding?.etFeet?.text.toString().isEmpty() && binding?.etInch?.text.toString()
+                    .isEmpty()
+            ) {
+                isValid = false
+            }
         }
         return isValid
     }
