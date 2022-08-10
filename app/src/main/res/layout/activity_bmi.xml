@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:textColorHint="@color/gray_400"
         app:boxStrokeColor="@color/emerald_400"
         app:hintTextColor="@color/emerald_400">
 
@@ -32,7 +33,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/weight_in_kg"
             android:inputType="numberDecimal"
-            android:textSize="@dimen/text_base" />
+            android:textSize="@dimen/text_base"
+            android:textColor="@color/emerald_400"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -42,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tilWeight"
         android:layout_margin="10dp"
+        android:textColorHint="@color/gray_400"
         app:boxStrokeColor="@color/emerald_400"
         app:hintTextColor="@color/emerald_400">
 
@@ -51,7 +54,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/height_in_cm"
             android:inputType="numberDecimal"
-            android:textSize="@dimen/text_base" />
+            android:textSize="@dimen/text_base"
+            android:textColor="@color/emerald_400"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -70,6 +74,7 @@
             android:layout_marginTop="4dp"
             android:gravity="center"
             android:text="@string/your_bmi"
+            android:textColor="@color/gray_600"
             android:textAllCaps="true"
             android:textSize="@dimen/text_base" />
 
@@ -90,6 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:gravity="center"
+            android:textColor="@color/gray_600"
             android:textSize="@dimen/text_base"
             tools:text="Normal" />
 
@@ -99,6 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:gravity="center"
+            android:textColor="@color/gray_600"
             android:textSize="@dimen/text_md"
             tools:text="Ops you are over weighted" />
     </LinearLayout>
