@@ -39,19 +39,17 @@ class BmiActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     .show()
             }
         }
-        binding?.rbMetric?.setOnClickListener {
-            if (!isMetric) switchUnits()
-        }
-        binding?.rbUs?.setOnClickListener {
-            if (isMetric) switchUnits()
+        
+        binding?.rgUnits?.setOnCheckedChangeListener { _, _ ->
+            switchUnits()
         }
     }
 
     private fun calculate(): Float {
         // centimeter to meter
         Log.i("calculate", "isMetric: $isMetric")
-        val height = binding?.etHeight?.text.toString().toFloat() / 100
-        val weight = if (isMetric) binding?.etWeight?.text.toString().toFloat() else getMetric()
+        val height = if (isMetric) binding?.etHeight?.text.toString().toFloat() / 100f else getMetricHeight()
+        val weight = if (isMetric) binding?.etWeight?.text.toString().toFloat() else getMetricWeight()
         Log.i("calculate", "height: $height weight: $weight")
         return weight / (height * height)
 
@@ -60,9 +58,11 @@ class BmiActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun switchUnits() {
         isMetric = !isMetric
         if (isMetric) {
+            binding?.tilWeight?.hint = "WEIGHT (in kg)"
             binding?.tilHeight?.visibility = View.VISIBLE
             binding?.llUsHeight?.visibility = View.GONE
         } else {
+            binding?.tilWeight?.hint = "WEIGHT (in lbs)"
             binding?.tilHeight?.visibility = View.GONE
             binding?.llUsHeight?.visibility = View.VISIBLE
         }
@@ -102,20 +102,21 @@ class BmiActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding?.llResult?.visibility = View.VISIBLE
     }
 
-    private fun getMetric(): Float {
+    // return weight in metric unit, pound to kg
+    private fun getMetricWeight(): Float {
+        return binding?.etWeight?.text.toString().toFloat() * 0.453592f
+    }
+
+    // return height in metric unit, feet and inch to m
+    private fun getMetricHeight(): Float {
         val feet =
             if (binding?.etFeet?.text.toString().isEmpty()) 0f else binding?.etFeet?.text.toString()
                 .toFloat()
         val inch =
             if (binding?.etInch?.text.toString().isEmpty()) 0f else binding?.etInch?.text.toString()
                 .toFloat()
-        return us2Metric(feet, inch)
-    }
-
-    private fun us2Metric(feet: Float, inch: Float): Float {
-        var cm: Float = feet * 30.48f
-        cm += inch * 2.54f
-        return cm / 100f // return in meter
+        val cm = feet * 30.48f + inch * 2.54f
+        return cm / 100f
     }
 
     private fun validateEntry(): Boolean {
