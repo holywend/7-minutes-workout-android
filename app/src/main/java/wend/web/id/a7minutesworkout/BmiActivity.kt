@@ -3,11 +3,13 @@ package wend.web.id.a7minutesworkout
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import wend.web.id.a7minutesworkout.databinding.ActivityBmiBinding
+import java.util.*
 
-class BmiActivity : AppCompatActivity() {
+class BmiActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var binding: ActivityBmiBinding? = null
     private var t2speech: TextToSpeech? = null
 
@@ -15,6 +17,7 @@ class BmiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBmiBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+        t2speech = TextToSpeech(this, this)
 
         setSupportActionBar(binding?.tbBmi)
         if (supportActionBar != null) {
@@ -74,6 +77,15 @@ class BmiActivity : AppCompatActivity() {
         return isValid
     }
 
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            val result = t2speech!!.setLanguage(Locale.UK)
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("Text 2 Speech", "Language specified is not supported!")
+            }
+        }
+    }
+
     private fun speakOut(text: String) {
         t2speech?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
     }
@@ -83,6 +95,7 @@ class BmiActivity : AppCompatActivity() {
         binding = null
         if (t2speech != null) {
             t2speech?.stop()
+            t2speech?.shutdown()
             t2speech = null
         }
     }
