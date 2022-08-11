@@ -172,14 +172,14 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
 
             override fun onFinish() {
-                if (currentIndex < exerciseModelList.size) {
-                    exerciseModelList[currentIndex].isCurrent = false
-                    exerciseModelList[currentIndex].isCompleted = true
-                    // do not increase current index if it is the last index
-                    // last index is size - 1
-                    if (!isResting) {
-                        currentIndex++
-                    }
+                exerciseModelList[currentIndex].isCurrent = false
+                exerciseModelList[currentIndex].isCompleted = true
+                // do not increase current index if it is the last index
+                // last index is size - 1
+                if (!isResting) {
+                    currentIndex++
+                }
+                if ((currentIndex + 1) < exerciseModelList.size) {
                     isResting = !isResting
                     lapsedProgress = 0
                     startTimer() // continue call itself
@@ -198,7 +198,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 // display updated exercise
                 // exerciseAdapter?.notifyDataSetChanged()
                 // update only specific changes
-                if (currentIndex > 0) exerciseAdapter?.notifyItemChanged(currentIndex-1)
+                if (currentIndex > 0) exerciseAdapter?.notifyItemChanged(currentIndex - 1)
                 exerciseAdapter?.notifyItemChanged(currentIndex)
             }
         }.start()
