@@ -25,11 +25,14 @@
         <entry key="app/src/main/res/layout/activity_bmi.xml" value="0.2736212056434374" />
         <entry key="app/src/main/res/layout/activity_exercise.xml" value="0.38426860990357126" />
         <entry key="app/src/main/res/layout/activity_finish.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_history.xml" value="0.14065840102607952" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/dialog_exit_confirmation.xml" value="0.19628286491387126" />
+        <entry key="app/src/main/res/layout/item_history_row.xml" value="0.3721915654006704" />
         <entry key="app/src/main/res/layout/item_shape_activity_bg.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_text_activity.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_textview_activity.xml" value="0.5175354003906251" />
+        <entry key="app/src/main/res/layout/linearlayout_history.xml" value="0.6933988045198687" />
         <entry key="app/src/main/res/layout/textview_activity.xml" value="0.14065840102607952" />
       </map>
     </option>

@@ -39,6 +39,13 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, BmiActivity::class.java)
             startActivity(intent)
         }
+        binding?.flHistory?.setOnClickListener {
+            // play sound effect
+            playSoundEffect()
+
+            val intent = Intent(this, HistoryActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onBackPressed() {

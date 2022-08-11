@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -29,12 +30,23 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    // activating view binding
     buildFeatures {
         viewBinding true
     }
 }
 
 dependencies {
+    def roomVersion = '2.4.3'
+    def activityVersion = '1.5.1'
+
+    // Room and lifecycle dependencies
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    // kotlin extension for coroutine support with room
+    implementation("androidx.room:room-ktx:$roomVersion")
+    // kotlin extension for coroutine support with activities
+    implementation "androidx.activity:activity-ktx:$activityVersion"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'

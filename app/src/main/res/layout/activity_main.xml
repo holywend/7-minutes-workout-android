@@ -43,7 +43,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         app:layout_constraintTop_toBottomOf="@id/fl_start"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/flHistory"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/ripple_circular_button_emerald"
@@ -58,7 +58,8 @@
             android:layout_gravity="center"/>
     </FrameLayout>
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tvCalculator"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/calculator"
@@ -66,7 +67,42 @@
         android:textStyle="bold"
         android:textSize="@dimen/text_base"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/flBmi"/>
+        app:layout_constraintTop_toBottomOf="@id/flBmi"
+        app:layout_constraintStart_toStartOf="@id/flBmi"
+        app:layout_constraintEnd_toEndOf="@id/flBmi"
+        />
+
+    <FrameLayout
+        android:id="@+id/flHistory"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/fl_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/flBmi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/ripple_circular_button_emerald"
+        >
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_calendar_emerald"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+    <TextView
+        android:id="@+id/tvHistory"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/history"
+        android:textColor="@color/emerald_400"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_base"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/flHistory"
+        app:layout_constraintStart_toStartOf="@id/flHistory"
+        app:layout_constraintEnd_toEndOf="@id/flHistory"/>
 
     <TextView
         android:layout_width="match_parent"

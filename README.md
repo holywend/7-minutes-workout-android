@@ -8,3 +8,4 @@ a 7 minutes workout android app
 - text 2 speech
 - media player to play mp3 sound effect
 - recycler view binding
+- database with room

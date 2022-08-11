@@ -11,7 +11,7 @@
     <string name="this_will_end_current_exercise">This will end current exercise</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="calculator">CALCULATOR</string>
+    <string name="calculator">Calculator</string>
     <string name="bmi">BMI</string>
     <string name="your_bmi">Your BMI</string>
     <string name="calculate">CALCULATE</string>
@@ -21,4 +21,7 @@
     <string name="us_units">US UNITS</string>
     <string name="feet">Feet</string>
     <string name="inch">Inch</string>
+    <string name="history">History</string>
+    <string name="exercise_history">Exercise History</string>
+    <string name="no_workout_history">No Workout History</string>
 </resources>
