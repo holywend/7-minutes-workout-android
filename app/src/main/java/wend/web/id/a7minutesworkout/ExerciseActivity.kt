@@ -179,7 +179,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 if (!isResting) {
                     currentIndex++
                 }
-                if ((currentIndex + 1) < exerciseModelList.size) {
+                if (currentIndex != exerciseModelList.size) {
                     isResting = !isResting
                     lapsedProgress = 0
                     startTimer() // continue call itself
